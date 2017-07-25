@@ -2,6 +2,7 @@
   <div id="app">
     <h1>Input</h1>
     <v-input class="input" :rules="ruleA" v-model="msg" type="text"></v-input>
+    <h1>Accordion</h1>
   </div>
 </template>
 
@@ -38,6 +39,10 @@ export default {
   /*text-align: center;*/
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.a{
+  box-sizing: border-box;
 }
 
 h1, h2 {

@@ -111,6 +111,7 @@ export default {
   /*width: auto;*/
   position: relative;
   height: auto;
+  margin-bottom: 24px;
 }
 .input-item {
   width: 100%;
@@ -127,17 +128,17 @@ export default {
   border-color: #1F2D3D;
 }
 .input-msg {
+  height: 24px;
+  line-height: 24px;
   color: #FF4949;
-  margin-top: 6px;
   padding-left: 14px;
   width: 100%;
   font-size: 14px;
+  position: absolute;
 }
-.fade-enter-active {
+.fade-enter-active, .fade-leave-active {
+  opacity: 1;
   transition: opacity .3s
-}
-.fade-leave-active {
-  transition: opacity 0
 }
 .fade-enter, .fade-leave-to {
   opacity: 0
