@@ -6,7 +6,10 @@
       @input="changeHandler"
       @focus="focusHandler"
       @blur="blurHandler">
-    <div class="input-msg" v-if="errState">{{errMsg}}</div>
+    <transition name="fade">
+      <div class="input-msg" v-if="errState">{{errMsg}}</div>
+    </transition>
+
   </div>
 </template>
 
@@ -38,6 +41,9 @@ export default {
       errMsg: ''
     }
   },
+  validator: {
+
+  },
   methods: {
     changeHandler (event) {
       let value = event.target.value;
@@ -63,24 +69,39 @@ export default {
 </script>
 
 <style lang="css">
-.input-container{
+.input-container {
   /*width: auto;*/
   position: relative;
   height: auto;
   text-align: center;
 }
-.input-item{
+.input-item {
   width: 100%;
-  padding: 2px 6px;
+  height: 36px;
+  padding: 5px 12px;
   font-size: 18px;
-  box-sizing: border-box;
-  border: 1px solid #1F2D3D;
+  border: 2px solid #99A9BF;
   border-radius: 3px;
+  transition: border-color .2s ease-in-out;
+  box-sizing: border-box;
+}
+.input-item:focus {
+  outline: none;
+  border-color: #1F2D3D;
 }
 .input-msg {
   color: #FF4949;
   margin-top: 6px;
   width: 100%;
   font-size: 14px;
+}
+.fade-enter-active {
+  transition: opacity .5s
+}
+.fade-leave-active {
+  transition: opacity 0
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0
 }
 </style>
