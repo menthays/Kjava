@@ -58,8 +58,8 @@ export default {
       return !/^[0-9\+]*$/.test(value) ?
         1 : 0
     },
-    agreeWith (value, payload) {
-      return value === payload ?
+    agreeWith (value, another) {
+      return value === another ?
         0 : 1
     }
   },
@@ -86,7 +86,7 @@ export default {
           }
           else if(typeof item.validate === 'string'){
             let validator = validators[item.validate]
-            vm.errState = validator.call(value, item.payload)
+            vm.errState = validator(value, item.payload)
           }
           else{
             throw "Param 'validators' must be function or string!"

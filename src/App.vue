@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>Input</h1>
-    <v-input class="input" :rules="ruleA" v-model="msg" type="password"></v-input>
+    <v-input class="input" :rules="ruleA" v-model="msg" type="text"></v-input>
   </div>
 </template>
 
@@ -14,8 +14,8 @@ export default {
       msg: 'test',
       ruleA: [
         {
-          validate: 'isNumber',
-          errMsg: 'Must be number !',
+          validate: 'isEmail',
+          errMsg: 'Must be Email!',
           payload: null
         }
       ]
