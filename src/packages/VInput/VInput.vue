@@ -42,7 +42,26 @@ export default {
     }
   },
   validators: {
-
+    isNonEmpty (value) {
+      return value === '' ?
+        1 : 0
+    },
+    minLength (value, length) {
+      return value.length < length ?
+        1 : 0
+    },
+    isEmail (value) {
+      return !/^\w+([+-.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value) ?
+        1 : 0
+    },
+    isNumber (value) {
+      return !/^[0-9\+]*$/.test(value) ?
+        1 : 0
+    },
+    agreeWith (value, payload) {
+      return value === payload ?
+        0 : 1
+    }
   },
   methods: {
     changeHandler (event) {
@@ -52,16 +71,35 @@ export default {
       this.$emit('change', value);
     },
     focusHandler () {
+      this.$emit('focus', event);
       this.errState = false
     },
     blurHandler (event) {
+      this.$emit('blur', event);
       let vm = this;
       let value = event.target.value;
+      let validators = vm.$options.validators;
       vm.rules.map((item)=>{
-        if(item.validate(value, item.errMsg, item.payload)){
-          vm.errState = true
-          vm.errMsg = item.errMsg
+        try {
+          if(typeof item.validate === 'function'){
+            vm.errState = item.validate(value, item.payload)
+          }
+          else if(typeof item.validate === 'string'){
+            let validator = validators[item.validate]
+            vm.errState = validator.call(value, item.payload)
+          }
+          else{
+            throw "Param 'validators' must be function or string!"
+          }
+
+          if(vm.errState){
+            vm.errMsg = item.errMsg
+          }
+        } catch (e) {
+          console.log("%c"+"[VForm Error] "+e, "color:red;");
         }
+
+
       })
     }
   }
@@ -73,7 +111,6 @@ export default {
   /*width: auto;*/
   position: relative;
   height: auto;
-  text-align: center;
 }
 .input-item {
   width: 100%;
@@ -82,7 +119,7 @@ export default {
   font-size: 18px;
   border: 2px solid #99A9BF;
   border-radius: 3px;
-  transition: border-color .2s ease-in-out;
+  transition: border-color .3s ease-in-out;
   box-sizing: border-box;
 }
 .input-item:focus {
@@ -92,11 +129,12 @@ export default {
 .input-msg {
   color: #FF4949;
   margin-top: 6px;
+  padding-left: 14px;
   width: 100%;
   font-size: 14px;
 }
 .fade-enter-active {
-  transition: opacity .5s
+  transition: opacity .3s
 }
 .fade-leave-active {
   transition: opacity 0

@@ -14,8 +14,8 @@ export default {
       msg: 'test',
       ruleA: [
         {
-          validate: this.fn,
-          errMsg: 'must be number',
+          validate: 'isNumber',
+          errMsg: 'Must be number !',
           payload: null
         }
       ]
@@ -25,10 +25,7 @@ export default {
     'v-input': VInput
   },
   methods: {
-    fn (value, payload) {
-      return !/^[0-9\+]*$/.test(value) ?
-         1 : 0
-    }
+
   }
 }
 </script>
