@@ -3,11 +3,17 @@
     <h1>Input</h1>
     <v-input class="input" :rules="ruleA" v-model="msg" type="text"></v-input>
     <h1>Accordion</h1>
+    <v-rg v-model="radioValue">
+      <v-rb label="3"></v-rb>
+      <v-rb label="6"></v-rb>
+    </v-rg>
   </div>
 </template>
 
 <script>
-import VInput from './packages/VInput/VInput.vue'
+import VInput from './packages/VInput'
+import rg from './packages/VRadio/radio_group.vue'
+import rb from './packages/VRadio/radio_button.vue'
 export default {
   name: 'app',
   data () {
@@ -19,11 +25,12 @@ export default {
           errMsg: 'Must be Email!',
           payload: null
         }
-      ]
+      ],
+      radioValue: '3'
     }
   },
   components: {
-    'v-input': VInput
+    'v-input': VInput, 'v-rg': rg, 'v-rb': rb
   },
   methods: {
 
@@ -40,7 +47,6 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
 .a{
   box-sizing: border-box;
 }
